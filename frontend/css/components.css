@@ -1,0 +1,68 @@
+.control-section { display: flex; flex-direction: column; gap: 10px; }
+.section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); }
+.control-row { display: flex; flex-direction: column; gap: 6px; }
+.control-label { display: flex; justify-content: space-between; font-size: 12px; font-weight: 500; color: var(--color-text); }
+
+.input-text, .select-input {
+  width: 100%; padding: 8px 10px; background-color: var(--color-surface);
+  border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  color: var(--color-text); outline: none; transition: border-color 0.15s ease;
+}
+.input-text:focus, .select-input:focus { border-color: var(--color-primary); }
+.range-slider { width: 100%; accent-color: var(--color-primary); cursor: pointer; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 8px 12px; border-radius: var(--radius-md); font-weight: 500; font-size: 13px;
+  border: 1px solid var(--color-border); background-color: var(--color-surface);
+  color: var(--color-text); cursor: pointer; transition: all 0.15s ease;
+}
+.btn:hover:not(:disabled) { background-color: var(--color-surface-muted); border-color: var(--color-border-hover); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary { background-color: var(--color-primary); border-color: var(--color-primary); color: #fff; }
+.btn-primary:hover:not(:disabled) { background-color: var(--color-primary-hover); border-color: var(--color-primary-hover); }
+.btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+/* Visualization bars */
+.bar {
+  display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
+  position: relative; transition: height 0.1s ease, background-color 0.15s ease;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0; min-width: 3px; background-color: var(--color-bar-default);
+}
+.bar-value { font-size: 10px; font-weight: 600; color: var(--color-text); margin-bottom: 4px; user-select: none; }
+.bar.is-comparing { background-color: var(--color-bar-compare) !important; }
+.bar.is-swapping { background-color: var(--color-bar-swap) !important; }
+.bar.is-sorted { background-color: var(--color-bar-sorted) !important; }
+.bar.is-pivot { background-color: var(--color-bar-pivot) !important; }
+.bar.is-low { background-color: var(--color-bar-low) !important; }
+.bar.is-mid { background-color: var(--color-bar-mid) !important; }
+.bar.is-high { background-color: var(--color-bar-high) !important; }
+.bar.is-found { background-color: var(--color-bar-found) !important; }
+
+/* Legend & Cards */
+.legend-panel { display: flex; flex-wrap: wrap; gap: 14px; padding-top: 14px; font-size: 12px; }
+.legend-item { display: flex; align-items: center; gap: 6px; color: var(--color-text-muted); }
+.legend-swatch { width: 12px; height: 12px; border-radius: 2px; }
+
+.info-card {
+  background-color: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg); padding: 16px; box-shadow: var(--shadow-sm);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.info-card-header { font-weight: 600; font-size: 13px; border-bottom: 1px solid var(--color-border); padding-bottom: 8px; }
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.stat-item { background-color: var(--color-surface-muted); padding: 10px; border-radius: var(--radius-md); text-align: center; }
+.stat-val { font-size: 18px; font-weight: 700; color: var(--color-primary); }
+.stat-lbl { font-size: 11px; color: var(--color-text-muted); }
+
+.complexity-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.complexity-table th, .complexity-table td { padding: 6px 8px; text-align: left; border-bottom: 1px solid var(--color-border); }
+.complexity-table th { color: var(--color-text-muted); font-weight: 500; }
+
+.current-step-box {
+  background-color: var(--color-surface-muted); border-left: 3px solid var(--color-primary);
+  padding: 10px 12px; font-family: ui-monospace, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px; min-height: 44px; display: flex; align-items: center;
+}
+.error-message { font-size: 12px; color: #dc2626; margin-top: 4px; }
+.pointer-badge { position: absolute; bottom: -20px; font-size: 9px; font-weight: 700; color: var(--color-primary); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 2px; padding: 0 3px; }

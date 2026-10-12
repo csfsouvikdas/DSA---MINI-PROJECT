@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Array Visualizer - DSA Mini Project</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="app-title-area">
+        <h1 class="app-title">Array Visualizer</h1>
+        <span class="app-subtitle">Data Structures &amp; Algorithms Interactive Laboratory</span>
+      </div>
+      <div>
+        <button id="btn-theme-toggle" class="btn" title="Toggle theme">Toggle Dark Mode</button>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <!-- Sidebar Controls Panel -->
+      <aside class="sidebar-panel">
+        <!-- Array Configuration -->
+        <div class="control-section">
+          <span class="section-title">Array Controls</span>
+          
+          <div class="control-row">
+            <div class="control-label">
+              <span>Array Size</span>
+              <span id="size-display">20</span>
+            </div>
+            <input type="range" id="array-size" class="range-slider" min="5" max="100" value="20">
+          </div>
+
+          <div class="btn-group">
+            <button id="btn-random" class="btn">Randomize</button>
+            <button id="btn-reset" class="btn">Reset Array</button>
+          </div>
+
+          <div class="control-row" style="margin-top: 6px;">
+            <label class="control-label" for="custom-array-input">Custom Array (comma-separated)</label>
+            <input type="text" id="custom-array-input" class="input-text" placeholder="e.g. 45, 12, 89, 34, 7">
+            <button id="btn-apply-custom" class="btn" style="margin-top: 4px;">Load Custom</button>
+          </div>
+        </div>
+
+        <!-- Algorithm Configuration -->
+        <div class="control-section">
+          <span class="section-title">Algorithm Selection</span>
+          
+          <div class="control-row">
+            <label class="control-label" for="category-select">Category</label>
+            <select id="category-select" class="select-input">
+              <option value="sorting">Sorting</option>
+              <option value="searching">Searching</option>
+            </select>
+          </div>
+
+          <div class="control-row">
+            <label class="control-label" for="algo-select">Algorithm</label>
+            <select id="algo-select" class="select-input"></select>
+          </div>
+
+          <div id="order-group" class="control-row">
+            <label class="control-label" for="order-select">Order</label>
+            <select id="order-select" class="select-input">
+              <option value="asc">Ascending (min to max)</option>
+              <option value="desc">Descending (max to min)</option>
+            </select>
+          </div>
+
+          <div id="target-group" class="control-row" style="display: none;">
+            <label class="control-label" for="target-input">Search Target Value</label>
+            <input type="number" id="target-input" class="input-text" value="35">
+            <button id="btn-sort-first" class="btn" style="margin-top: 4px;">Sort Array First</button>
+          </div>
+        </div>
+
+        <!-- Playback Controls -->
+        <div class="control-section">
+          <span class="section-title">Execution Controls</span>
+          
+          <div class="btn-group">
+            <button id="btn-start" class="btn btn-primary">Start</button>
+            <button id="btn-pause" class="btn" disabled>Pause</button>
+          </div>
+          
+          <div class="btn-group">
+            <button id="btn-resume" class="btn" disabled>Resume</button>
+            <button id="btn-step-forward" class="btn" disabled>Step Forward</button>
+          </div>
+
+          <button id="btn-step-back" class="btn" disabled>Step Backward</button>
+
+          <div class="control-row" style="margin-top: 6px;">
+            <div class="control-label">
+              <span>Speed</span>
+              <span id="speed-label">Normal</span>
+            </div>
+            <input type="range" id="speed-slider" class="range-slider" min="1" max="10" value="5">
+          </div>
+        </div>
+
+        <div id="error-box" class="error-message" style="display: none;"></div>
+      </aside>
+
+      <!-- Main Visualizer Area -->
+      <main class="main-content">
+        <!-- Visual Bars Canvas -->
+        <div class="canvas-wrapper">
+          <div id="bars-container" class="bars-container"></div>
+          
+          <!-- Legend -->
+          <div class="legend-panel">
+            <div class="legend-item">
+              <div class="legend-swatch" style="background-color: var(--color-bar-default);"></div>
+              <span>Default</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-swatch" style="background-color: var(--color-bar-compare);"></div>
+              <span>Comparing</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-swatch" style="background-color: var(--color-bar-swap);"></div>
+              <span>Swap / Write</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-swatch" style="background-color: var(--color-bar-sorted);"></div>
+              <span>Sorted</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-swatch" style="background-color: var(--color-bar-pivot);"></div>
+              <span>Pivot / Mid</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-swatch" style="background-color: var(--color-bar-low);"></div>
+              <span>Low Pointer</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-swatch" style="background-color: var(--color-bar-high);"></div>
+              <span>High Pointer</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-swatch" style="background-color: var(--color-bar-found);"></div>
+              <span>Target Found</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Information and Stats Grid -->
+        <div class="info-grid">
+          <!-- Live Metrics & Complexity -->
+          <div class="info-card">
+            <div class="info-card-header">Live Execution Metrics</div>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <div id="stat-comparisons" class="stat-val">0</div>
+                <div class="stat-lbl">Comparisons</div>
+              </div>
+              <div class="stat-item">
+                <div id="stat-swaps" class="stat-val">0</div>
+                <div class="stat-lbl">Swaps / Writes</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-val"><span id="stat-current-step">0</span> / <span id="stat-total-steps">0</span></div>
+                <div class="stat-lbl">Steps Progress</div>
+              </div>
+            </div>
+
+            <div class="info-card-header" style="margin-top: 6px;">Asymptotic Complexity</div>
+            <table class="complexity-table">
+              <tbody>
+                <tr><th>Best Case</th><td id="time-best">-</td></tr>
+                <tr><th>Average Case</th><td id="time-avg">-</td></tr>
+                <tr><th>Worst Case</th><td id="time-worst">-</td></tr>
+                <tr><th>Space Complexity</th><td id="space-worst">-</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Explanation & Live Trace -->
+          <div class="info-card">
+            <div class="info-card-header">Algorithm Details &amp; Step Trace</div>
+            <div>
+              <strong id="algo-name">Select Algorithm</strong>
+              <p id="algo-desc" style="font-size: 13px; color: var(--color-text-muted); margin-top: 4px;"></p>
+            </div>
+
+            <div class="info-card-header" style="margin-top: 6px;">Active Step Trace</div>
+            <div id="step-message" class="current-step-box">Ready. Press Start to run.</div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

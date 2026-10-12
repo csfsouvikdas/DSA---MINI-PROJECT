@@ -1,0 +1,15 @@
+{
+  "name": "array-visualizer-backend",
+  "version": "1.0.0",
+  "description": "Backend API for DSA Array Visualizer mini project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test tests/algorithms.test.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
